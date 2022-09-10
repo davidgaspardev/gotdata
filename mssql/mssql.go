@@ -8,7 +8,8 @@ import (
 )
 
 type _DatabaseMssql struct {
-	db *sql.DB
+	logger bool
+	db     *sql.DB
 }
 
 var instance *_DatabaseMssql
