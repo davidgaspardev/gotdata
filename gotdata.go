@@ -13,6 +13,8 @@ type Gotdata interface {
 	Exec(tSql string) error
 	// Query data with T-SQL statement
 	Query(tSql string) ([]map[string]interface{}, error)
+	// Count rows from table
+	Count(tableName string) (uint, error)
 	// Insert data in the table
 	Write(tableName string, data map[string]interface{}) error
 	// Select columns (attributes) from table
