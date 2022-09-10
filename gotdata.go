@@ -6,6 +6,9 @@ type Filter = helpers.Filter
 type Where = helpers.Where
 
 type Gotdata interface {
+	// Debug
+	SetLogger(showLog bool)
+
 	// Execute T-SQL statement
 	Exec(tSql string) error
 	// Query data with T-SQL statement
