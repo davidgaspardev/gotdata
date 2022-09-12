@@ -137,6 +137,12 @@ func (tSqlBuilder *TSqlBuilder) IsNotEqual(column string, value interface{}) *TS
 	return tSqlBuilder
 }
 
+func (tSqlBuilder *TSqlBuilder) GreaterThan(column string, value interface{}) *TSqlBuilder {
+	statement := fmt.Sprintf("[%s] > '%v'", column, value)
+	tSqlBuilder.addStatament(statement)
+	return tSqlBuilder
+}
+
 func (tSqlBuilder *TSqlBuilder) Between(column string, startValue interface{}, endValue interface{}) *TSqlBuilder {
 	statement := fmt.Sprintf("[%s] BETWEEN '%v' AND '%v'", column, startValue, endValue)
 	tSqlBuilder.addStatament(statement)
