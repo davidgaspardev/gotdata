@@ -155,6 +155,12 @@ func (tSqlBuilder *TSqlBuilder) LessThan(column string, value interface{}) *TSql
 	return tSqlBuilder
 }
 
+func (tSqlBuilder *TSqlBuilder) LessThanOrEqualTo(column string, value interface{}) *TSqlBuilder {
+	statement := fmt.Sprintf("[%s] <= '%v'", column, value)
+	tSqlBuilder.addStatament(statement)
+	return tSqlBuilder
+}
+
 func (tSqlBuilder *TSqlBuilder) Between(column string, startValue interface{}, endValue interface{}) *TSqlBuilder {
 	statement := fmt.Sprintf("[%s] BETWEEN '%v' AND '%v'", column, startValue, endValue)
 	tSqlBuilder.addStatament(statement)
