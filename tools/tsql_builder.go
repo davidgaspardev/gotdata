@@ -179,6 +179,12 @@ func (tSqlBuilder *TSqlBuilder) IsNull(column string) *TSqlBuilder {
 	return tSqlBuilder
 }
 
+func (tSqlBuilder *TSqlBuilder) IsNotNull(column string) *TSqlBuilder {
+	statement := fmt.Sprintf("[%s] IS NOT NULL", column)
+	tSqlBuilder.addStatament(statement)
+	return tSqlBuilder
+}
+
 // ---------------------- ORDER BY Clouse (Transact-SQL) ----------------------
 //
 // See: https://docs.microsoft.com/en-us/sql/t-sql/queries/select-order-by-clause-transact-sql?view=sql-server-ver16
