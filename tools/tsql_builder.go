@@ -143,6 +143,12 @@ func (tSqlBuilder *TSqlBuilder) Between(column string, startValue interface{}, e
 	return tSqlBuilder
 }
 
+func (tSqlBuilder *TSqlBuilder) Like(column string, value interface{}) *TSqlBuilder {
+	statement := fmt.Sprintf("[%s] LIKE '%%%v%%'", column, value)
+	tSqlBuilder.addStatament(statement)
+	return tSqlBuilder
+}
+
 // ---------------------- ORDER BY Clouse (Transact-SQL) ----------------------
 //
 // See: https://docs.microsoft.com/en-us/sql/t-sql/queries/select-order-by-clause-transact-sql?view=sql-server-ver16
