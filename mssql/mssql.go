@@ -3,7 +3,6 @@ package mssql
 import (
 	"database/sql"
 	"fmt"
-	"gotdata"
 
 	"github.com/davidgaspardev/golog"
 )
@@ -46,6 +45,6 @@ func connectDatabase() (db *sql.DB, err error) {
 	return
 }
 
-func GetInstance() gotdata.Gotdata {
+func GetInstance() *_DatabaseMssql {
 	return instance
 }

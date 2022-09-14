@@ -1,6 +1,9 @@
 package gotdata
 
-import "gotdata/helpers"
+import (
+	"gotdata/helpers"
+	"gotdata/mssql"
+)
 
 type Filter = helpers.Filter
 type Where = helpers.Where
@@ -25,4 +28,9 @@ type Gotdata interface {
 	Update(tableName string, data map[string]interface{}, filter *Filter) error
 	// Delete row(s) in the table with where statement
 	Delete(tableName string, filter *Filter) error
+}
+
+// Entry pointer main
+func GetGotdata() Gotdata {
+	return mssql.GetInstance()
 }
