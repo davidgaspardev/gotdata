@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/davidgaspardev/golog"
+	_ "github.com/denisenkom/go-mssqldb"
 )
 
 type _DatabaseMssql struct {
