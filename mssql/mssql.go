@@ -15,7 +15,7 @@ type _DatabaseMssql struct {
 
 var instance *_DatabaseMssql
 
-func init() {
+func createInstance() {
 	// Check if has connection
 	if !hasConnectionData() {
 		err := fmt.Errorf("don't has connection data")
@@ -47,5 +47,22 @@ func connectDatabase() (db *sql.DB, err error) {
 }
 
 func GetInstance() *_DatabaseMssql {
+	if instance == nil {
+		createInstance()
+	}
+
 	return instance
+}
+
+func (mssql *_DatabaseMssql) Restart() error {
+	if err := mssql.db.Close(); err != nil {
+		return err
+	}
+
+	// Delete instance
+	instance = nil
+
+	createInstance()
+
+	return nil
 }

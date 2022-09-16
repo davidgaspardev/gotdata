@@ -28,6 +28,8 @@ type Gotdata interface {
 	Update(tableName string, data map[string]interface{}, filter *Filter) error
 	// Delete row(s) in the table with where statement
 	Delete(tableName string, filter *Filter) error
+
+	Restart() error
 }
 
 // Entry pointer main
