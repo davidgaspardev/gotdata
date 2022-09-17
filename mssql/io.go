@@ -93,7 +93,9 @@ func (io *_DatabaseMssql) ReadWithFilter(tableName string, attributes []string, 
 	var tSqlBuilder tools.TSqlBuilder
 	tSqlBuilder.SelectColumns(attributes)
 	tSqlBuilder.From(tableName)
-	io.buildFilter(&tSqlBuilder, filter)
+	if filter != nil {
+		io.buildFilter(&tSqlBuilder, filter)
+	}
 	tSqlStatement := tSqlBuilder.Done()
 
 	data, err := io.read(attributes, tSqlStatement)
@@ -107,7 +109,9 @@ func (io *_DatabaseMssql) ReadWithFilter(tableName string, attributes []string, 
 func (io *_DatabaseMssql) Update(tableName string, data map[string]interface{}, filter *helpers.Filter) error {
 	var tSqlBuilder tools.TSqlBuilder
 	tSqlBuilder.Update(tableName, data)
-	io.buildFilter(&tSqlBuilder, filter)
+	if filter != nil {
+		io.buildFilter(&tSqlBuilder, filter)
+	}
 	tSqlStatement := tSqlBuilder.Done()
 
 	_, err := io.db.Exec(tSqlStatement)
@@ -121,7 +125,9 @@ func (io *_DatabaseMssql) Update(tableName string, data map[string]interface{}, 
 func (io *_DatabaseMssql) Delete(tableName string, filter *helpers.Filter) error {
 	var tSqlBuilder tools.TSqlBuilder
 	tSqlBuilder.Delete(tableName)
-	io.buildFilter(&tSqlBuilder, filter)
+	if filter != nil {
+		io.buildFilter(&tSqlBuilder, filter)
+	}
 	tSqlStatement := tSqlBuilder.Done()
 
 	_, err := io.db.Exec(tSqlStatement)
