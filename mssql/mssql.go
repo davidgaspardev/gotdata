@@ -66,3 +66,7 @@ func (mssql *_DatabaseMssql) Restart() error {
 
 	return nil
 }
+
+func (mssql *_DatabaseMssql) Close() error {
+	return mssql.db.Close()
+}

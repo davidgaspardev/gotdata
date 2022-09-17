@@ -30,6 +30,7 @@ type Gotdata interface {
 	Delete(tableName string, filter *Filter) error
 
 	Restart() error
+	Close() error
 }
 
 // Entry pointer main
