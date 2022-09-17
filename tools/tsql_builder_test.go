@@ -17,6 +17,22 @@ func Test_SelectFrom(t *testing.T) {
 	}
 }
 
+func Test_SelectFromWithNolock(t *testing.T) {
+	// Use this attributes
+	attributes := []string{"code", "name", "type", "stopFactor", "status"}
+
+	tSqlBuilder := TSqlBuilder{}
+
+	tSqlBuilder.Select(attributes).From("MAC_machines")
+	tSqlBuilder.WithNolock()
+
+	if result := tSqlBuilder.Done(); result != "SELECT code,name,type,stopFactor,status FROM [MAC_machines] WITH (NOLOCK);" {
+		t.Error(result)
+	} else {
+		t.Log(result)
+	}
+}
+
 func Test_SelectColumnsFrom(t *testing.T) {
 	// Use this attributes
 	attributes := []string{"code", "name", "type", "stopFactor", "status"}
@@ -26,6 +42,22 @@ func Test_SelectColumnsFrom(t *testing.T) {
 	tSqlBuilder.SelectColumns(attributes).From("MAC_machines")
 
 	if result := tSqlBuilder.Done(); result != "SELECT [code],[name],[type],[stopFactor],[status] FROM [MAC_machines];" {
+		t.Error(result)
+	} else {
+		t.Log(result)
+	}
+}
+
+func Test_SelectColumnsFromWithNolock(t *testing.T) {
+	// Use this attributes
+	attributes := []string{"code", "name", "type", "stopFactor", "status"}
+
+	tSqlBuilder := TSqlBuilder{}
+
+	tSqlBuilder.SelectColumns(attributes).From("MAC_machines")
+	tSqlBuilder.WithNolock()
+
+	if result := tSqlBuilder.Done(); result != "SELECT [code],[name],[type],[stopFactor],[status] FROM [MAC_machines] WITH (NOLOCK);" {
 		t.Error(result)
 	} else {
 		t.Log(result)
