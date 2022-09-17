@@ -20,13 +20,11 @@ type Gotdata interface {
 	Count(tableName string) (uint, error)
 	// Insert data in the table
 	Write(tableName string, data map[string]interface{}) error
-	// Select columns (attributes) from table
-	Read(tableName string, attributes []string) ([]map[string]interface{}, error)
-	// Select columns (attributes) from table with where statement
-	ReadWithFilter(tableName string, attributes []string, filter *Filter) ([]map[string]interface{}, error)
-	// Update row(s) in the table with where statement
+	// Select columns (attributes) from table with optional filter
+	Read(tableName string, attributes []string, filter *Filter) ([]map[string]interface{}, error)
+	// Update row(s) in the table with optional filter
 	Update(tableName string, data map[string]interface{}, filter *Filter) error
-	// Delete row(s) in the table with where statement
+	// Delete row(s) in the table with optional filter
 	Delete(tableName string, filter *Filter) error
 
 	Restart() error

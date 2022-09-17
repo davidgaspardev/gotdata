@@ -75,21 +75,7 @@ func (io *_DatabaseMssql) Write(tableName string, data map[string]interface{}) e
 	return err
 }
 
-func (io *_DatabaseMssql) Read(tableName string, attributes []string) ([]map[string]interface{}, error) {
-	var tSqlBuilder tools.TSqlBuilder
-	tSqlBuilder.SelectColumns(attributes)
-	tSqlBuilder.From(tableName)
-	tSqlStatement := tSqlBuilder.Done()
-
-	data, err := io.read(attributes, tSqlStatement)
-	if err != nil && io.logger {
-		golog.Error("Gotdata", err)
-	}
-
-	return data, err
-}
-
-func (io *_DatabaseMssql) ReadWithFilter(tableName string, attributes []string, filter *helpers.Filter) ([]map[string]interface{}, error) {
+func (io *_DatabaseMssql) Read(tableName string, attributes []string, filter *helpers.Filter) ([]map[string]interface{}, error) {
 	var tSqlBuilder tools.TSqlBuilder
 	tSqlBuilder.SelectColumns(attributes)
 	tSqlBuilder.From(tableName)
