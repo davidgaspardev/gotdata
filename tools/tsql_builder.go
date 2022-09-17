@@ -111,6 +111,12 @@ func (tSqlBuidler *TSqlBuilder) FromSubSelect(subSelect string) *TSqlBuilder {
 	return tSqlBuidler
 }
 
+func (tSqlBuilder *TSqlBuilder) WithNolock() *TSqlBuilder {
+	statement := "WITH (NOLOCK)"
+	tSqlBuilder.addStatament(statement)
+	return tSqlBuilder
+}
+
 // ---------------------- WHERE Clouse (Transact-SQL) ----------------------
 //
 // See: https://docs.microsoft.com/en-us/sql/t-sql/queries/where-transact-sql?view=sql-server-ver16
