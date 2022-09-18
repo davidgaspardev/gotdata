@@ -2,6 +2,7 @@ package mssql
 
 import (
 	"fmt"
+	"gotdata/helpers"
 	"testing"
 	"time"
 )
@@ -40,6 +41,39 @@ func Test_WriteInMultithread(t *testing.T) {
 				if err := gotdb.Write("PLC_pulses", data); err != nil {
 					t.Error(err)
 				}
+			}
+
+			threadResult <- id
+		}(uint(i))
+	}
+
+	for i := 0; i < threadNumber; i++ {
+		threadId := <-threadResult
+
+		t.Logf("%dº thread finished", threadId)
+	}
+
+	gotdb.Close()
+}
+
+func Test_ReadInMultithread(t *testing.T) {
+	gotdb := GetInstance()
+	threadResult := make(chan uint)
+	threadNumber := 1000
+
+	for i := 0; i < threadNumber; i++ {
+		go func(id uint) {
+			filter := helpers.Filter{
+				Page: (id + 1),
+			}
+
+			data, err := gotdb.Read("PLC_pulses", []string{"mac_code", "date", "counter"}, &filter)
+			if err != nil {
+				t.Error(err)
+			}
+
+			for j := 0; j < len(data); j++ {
+				t.Logf("%dº - Data: %+v\n", j, data[j])
 			}
 
 			threadResult <- id
