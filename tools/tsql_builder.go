@@ -284,8 +284,8 @@ func (tSqlBuidler *TSqlBuilder) Delete(tableName string) *TSqlBuilder {
 
 // ---------------------- QUERY DONE ---------------------- //
 
-func (sqlBuilder *TSqlBuilder) Done() string {
-	return fmt.Sprint(sqlBuilder.statement, ";")
+func (tSqlBuilder *TSqlBuilder) Done() string {
+	return fmt.Sprint(tSqlBuilder.statement, ";")
 }
 
 func (tSqlBuilder *TSqlBuilder) DoneTransaction() string {
