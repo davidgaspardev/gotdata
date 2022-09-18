@@ -287,3 +287,7 @@ func (tSqlBuidler *TSqlBuilder) Delete(tableName string) *TSqlBuilder {
 func (sqlBuilder *TSqlBuilder) Done() string {
 	return fmt.Sprint(sqlBuilder.statement, ";")
 }
+
+func (tSqlBuilder *TSqlBuilder) DoneTransation() string {
+	return fmt.Sprintf("BEGIN TRANSACTION; %s; COMMIT;", tSqlBuilder.statement)
+}
