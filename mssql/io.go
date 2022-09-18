@@ -65,7 +65,7 @@ func (io *_DatabaseMssql) Count(tableName string) (uint, error) {
 func (io *_DatabaseMssql) Write(tableName string, data map[string]interface{}) error {
 	var tSqlBuilder tools.TSqlBuilder
 	tSqlBuilder.InsertInto(tableName, data)
-	tSqlStatement := tSqlBuilder.Done()
+	tSqlStatement := tSqlBuilder.DoneTransaction()
 
 	_, err := io.db.Exec(tSqlStatement)
 	if err != nil && io.logger {
@@ -98,7 +98,7 @@ func (io *_DatabaseMssql) Update(tableName string, data map[string]interface{}, 
 	if filter != nil {
 		io.buildFilter(&tSqlBuilder, filter)
 	}
-	tSqlStatement := tSqlBuilder.Done()
+	tSqlStatement := tSqlBuilder.DoneTransaction()
 
 	_, err := io.db.Exec(tSqlStatement)
 	if err != nil && io.logger {
@@ -114,7 +114,7 @@ func (io *_DatabaseMssql) Delete(tableName string, filter *helpers.Filter) error
 	if filter != nil {
 		io.buildFilter(&tSqlBuilder, filter)
 	}
-	tSqlStatement := tSqlBuilder.Done()
+	tSqlStatement := tSqlBuilder.DoneTransaction()
 
 	_, err := io.db.Exec(tSqlStatement)
 	if err != nil && io.logger {
