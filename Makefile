@@ -18,7 +18,7 @@ test_tools_verbose:
 	go test -v $(DIR_TOOLS)
 
 test_mssql:
-	go test $(DIR_MSSQL)
+	go test -p 1 $(DIR_MSSQL)
 
 test_mssql_verbose:
-	go test -v $(DIR_MSSQL)
+	go test -p 1 -v $(DIR_MSSQL)
