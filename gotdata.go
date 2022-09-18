@@ -1,8 +1,8 @@
 package gotdata
 
 import (
-	"gotdata/helpers"
-	"gotdata/mssql"
+	"github.com/davidgaspardev/gotdata/helpers"
+	"github.com/davidgaspardev/gotdata/mssql"
 )
 
 type Filter = helpers.Filter

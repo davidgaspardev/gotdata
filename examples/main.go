@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"gotdata"
 	"time"
+
+	"github.com/davidgaspardev/gotdata"
 )
 
 var gotdb gotdata.Gotdata

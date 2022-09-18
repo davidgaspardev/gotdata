@@ -2,8 +2,9 @@ package mssql
 
 import (
 	"fmt"
-	"gotdata/helpers"
-	"gotdata/tools"
+
+	"github.com/davidgaspardev/gotdata/helpers"
+	"github.com/davidgaspardev/gotdata/tools"
 
 	"github.com/davidgaspardev/golog"
 )

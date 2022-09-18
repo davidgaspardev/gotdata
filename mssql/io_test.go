@@ -2,9 +2,10 @@ package mssql
 
 import (
 	"fmt"
-	"gotdata/helpers"
 	"testing"
 	"time"
+
+	"github.com/davidgaspardev/gotdata/helpers"
 )
 
 func Test_WriteInMultithread(t *testing.T) {

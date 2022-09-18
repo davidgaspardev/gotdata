@@ -1,4 +1,4 @@
-PACKAGE_NAME = gotdata
+PACKAGE_NAME = github.com/davidgaspardev/gotdata
 
 DIR_EXAMPLES = examples
 DIR_MSSQL = $(PACKAGE_NAME)/mssql

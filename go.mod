@@ -1,4 +1,4 @@
-module gotdata
+module github.com/davidgaspardev/gotdata
 
 go 1.19
 
