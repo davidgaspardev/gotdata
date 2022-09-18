@@ -288,6 +288,6 @@ func (sqlBuilder *TSqlBuilder) Done() string {
 	return fmt.Sprint(sqlBuilder.statement, ";")
 }
 
-func (tSqlBuilder *TSqlBuilder) DoneTransation() string {
+func (tSqlBuilder *TSqlBuilder) DoneTransaction() string {
 	return fmt.Sprintf("BEGIN TRANSACTION; %s; COMMIT;", tSqlBuilder.statement)
 }
