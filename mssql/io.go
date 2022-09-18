@@ -78,7 +78,7 @@ func (io *_DatabaseMssql) Write(tableName string, data map[string]interface{}) e
 func (io *_DatabaseMssql) Read(tableName string, attributes []string, filter *helpers.Filter) ([]map[string]interface{}, error) {
 	var tSqlBuilder tools.TSqlBuilder
 	tSqlBuilder.SelectColumns(attributes)
-	tSqlBuilder.From(tableName)
+	tSqlBuilder.From(tableName).WithNolock()
 	if filter != nil {
 		io.buildFilter(&tSqlBuilder, filter)
 	}
