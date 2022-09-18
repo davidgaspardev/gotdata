@@ -59,5 +59,6 @@ func createConnectionUrl() string {
 }
 
 func configDatabaseConnection(db *sql.DB) {
-	db.SetMaxOpenConns(5)
+	db.SetMaxOpenConns(8)
+	db.SetMaxIdleConns(4)
 }
