@@ -68,5 +68,11 @@ func (mssql *_DatabaseMssql) Restart() error {
 }
 
 func (mssql *_DatabaseMssql) Close() error {
-	return mssql.db.Close()
+	if err := mssql.db.Close(); err != nil {
+		return err
+	}
+
+	instance = nil
+
+	return nil
 }
