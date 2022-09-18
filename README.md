@@ -12,6 +12,18 @@ go get github.com/davidgaspardev/gotdata
 
 Obs: run command in project root
 
+
+## Environment
+
+For authentication with Microsoft SQL Server, the following environment variables are required:
+
+- `MSSQL_USERNAME`
+- `MSSQL_PASSWORD`
+- `MSSQL_HOST`
+- `MSSQL_PORT`
+- `MSSQL_INSTANCE`
+- `MSSQL_DATABASE`
+
 ## Examples
 
 Run examples code:
