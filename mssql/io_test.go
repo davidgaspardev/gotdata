@@ -57,7 +57,9 @@ func Test_WriteInMultithread(t *testing.T) {
 		t.Logf("%dº thread finished", threadId)
 	}
 
-	gotdb.Close()
+	if err := gotdb.Close(); err != nil {
+		t.Error(err)
+	}
 }
 
 func Test_ReadInMultithread(t *testing.T) {
