@@ -12,11 +12,11 @@ type TSqlBuilder struct {
 }
 
 // Add statement
-func (sqlBuilder *TSqlBuilder) addStatement(stmt string) {
-	if sqlBuilder.statement == "" {
-		sqlBuilder.statement = stmt
+func (tSqlBuilder *TSqlBuilder) addStatement(stmt string) {
+	if tSqlBuilder.statement == "" {
+		tSqlBuilder.statement = stmt
 	} else {
-		sqlBuilder.statement = fmt.Sprint(sqlBuilder.statement, " ", stmt)
+		tSqlBuilder.statement = fmt.Sprint(tSqlBuilder.statement, " ", stmt)
 	}
 }
 
@@ -87,12 +87,12 @@ func (tSqlBuilder *TSqlBuilder) SelectDistinctColumn(columns []string) *TSqlBuil
 }
 
 // Count rows from table
-func (sqlBuilder *TSqlBuilder) SelectCountAll() *TSqlBuilder {
+func (tSqlBuilder *TSqlBuilder) SelectCountAll() *TSqlBuilder {
 	statement := "SELECT COUNT(*)"
 
-	sqlBuilder.statement = statement
+	tSqlBuilder.statement = statement
 
-	return sqlBuilder
+	return tSqlBuilder
 }
 
 // ---------------------- FROM Clouse (Transact-SQL) ----------------------
@@ -232,7 +232,7 @@ func (tSqlBuidler *TSqlBuilder) FetchNext(rows uint) *TSqlBuilder {
 //
 // See: https://docs.microsoft.com/en-us/sql/t-sql/statements/insert-sql-graph?view=sql-server-ver16
 
-func (sqlBuilder *TSqlBuilder) InsertInto(tableName string, data map[string]interface{}) *TSqlBuilder {
+func (tSqlBuilder *TSqlBuilder) InsertInto(tableName string, data map[string]interface{}) *TSqlBuilder {
 	statement := fmt.Sprintf("INSERT INTO [%s]", tableName)
 	columns := make([]string, len(data))
 	values := make([]string, len(data))
@@ -246,9 +246,9 @@ func (sqlBuilder *TSqlBuilder) InsertInto(tableName string, data map[string]inte
 
 	statement = fmt.Sprintf("%s (%s) VALUES (%s)", statement, strings.Join(columns, ","), strings.Join(values, ","))
 
-	sqlBuilder.addStatement(statement)
+	tSqlBuilder.addStatement(statement)
 
-	return sqlBuilder
+	return tSqlBuilder
 }
 
 // ---------------------- UPDATE Clouse (Transact-SQL) ----------------------
