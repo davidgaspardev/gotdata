@@ -14,7 +14,7 @@ func Test_WriteInMultithread(t *testing.T) {
 	threadResult := make(chan uint)
 	threadNumber := 1000
 
-	gotdb.Exec(`
+	if err := gotdb.Exec(`
 		IF NOT EXISTS (SELECT * FROM [sysobjects] WHERE [name] = 'PLC_pulses')
 		BEGIN
 			CREATE TABLE [PLC_pulses] (
@@ -24,7 +24,10 @@ func Test_WriteInMultithread(t *testing.T) {
 				[counter]  INTEGER     NOT NULL
 			)
 		END
-	`)
+	`); err != nil {
+		t.Log(err)
+		t.FailNow()
+	}
 
 	for i := 0; i < threadNumber; i++ {
 		go func(id uint) {
