@@ -12,7 +12,7 @@ type TSqlBuilder struct {
 }
 
 // Add statement
-func (sqlBuilder *TSqlBuilder) addStatament(stmt string) {
+func (sqlBuilder *TSqlBuilder) addStatement(stmt string) {
 	if sqlBuilder.statement == "" {
 		sqlBuilder.statement = stmt
 	} else {
@@ -23,9 +23,9 @@ func (sqlBuilder *TSqlBuilder) addStatament(stmt string) {
 // ---------------------- General ----------------------
 
 func (tSqlBuidler *TSqlBuilder) SubQuery(inside func(*TSqlBuilder)) *TSqlBuilder {
-	tSqlBuidler.addStatament("(")
+	tSqlBuidler.addStatement("(")
 	inside(tSqlBuidler)
-	tSqlBuidler.addStatament(")")
+	tSqlBuidler.addStatement(")")
 	return tSqlBuidler
 }
 
@@ -36,7 +36,7 @@ func (tSqlBuidler *TSqlBuilder) SubQuery(inside func(*TSqlBuilder)) *TSqlBuilder
 func (tSqlBuilder *TSqlBuilder) Select(selectList []string) *TSqlBuilder {
 	if len(selectList) > 0 {
 		statement := fmt.Sprintf("SELECT %s", strings.Join(selectList, ","))
-		tSqlBuilder.addStatament(statement)
+		tSqlBuilder.addStatement(statement)
 	} else {
 		return tSqlBuilder.SelectAll()
 	}
@@ -55,7 +55,7 @@ func (tSqlBuilder *TSqlBuilder) SelectColumns(columns []string) *TSqlBuilder {
 			columnsFormatted[i] = fmt.Sprintf("[%s]", columns[i])
 		}
 		statement := fmt.Sprintf("SELECT %s", strings.Join(columnsFormatted, ","))
-		tSqlBuilder.addStatament(statement)
+		tSqlBuilder.addStatement(statement)
 	} else {
 		return tSqlBuilder.SelectAll()
 	}
@@ -65,7 +65,7 @@ func (tSqlBuilder *TSqlBuilder) SelectColumns(columns []string) *TSqlBuilder {
 func (tSqlBuilder *TSqlBuilder) SelectDistinct(selectList []string) *TSqlBuilder {
 	if len(selectList) > 0 {
 		statement := fmt.Sprintf("SELECT DISTINCT %s", strings.Join(selectList, ","))
-		tSqlBuilder.addStatament(statement)
+		tSqlBuilder.addStatement(statement)
 	} else {
 		return tSqlBuilder.SelectDistinct([]string{"*"})
 	}
@@ -79,7 +79,7 @@ func (tSqlBuilder *TSqlBuilder) SelectDistinctColumn(columns []string) *TSqlBuil
 			columnsFormatted[i] = fmt.Sprintf("[%s]", columns[i])
 		}
 		statement := fmt.Sprintf("SELECT DISTINCT %s", strings.Join(columnsFormatted, ","))
-		tSqlBuilder.addStatament(statement)
+		tSqlBuilder.addStatement(statement)
 	} else {
 		return tSqlBuilder.SelectDistinct([]string{"*"})
 	}
@@ -101,19 +101,19 @@ func (sqlBuilder *TSqlBuilder) SelectCountAll() *TSqlBuilder {
 
 func (tSqlBuilder *TSqlBuilder) From(tableSource string) *TSqlBuilder {
 	statement := "FROM [" + tableSource + "]"
-	tSqlBuilder.addStatament(statement)
+	tSqlBuilder.addStatement(statement)
 	return tSqlBuilder
 }
 
 func (tSqlBuidler *TSqlBuilder) FromSubSelect(subSelect string) *TSqlBuilder {
 	statement := "FROM (" + subSelect + ") AS TAB"
-	tSqlBuidler.addStatament(statement)
+	tSqlBuidler.addStatement(statement)
 	return tSqlBuidler
 }
 
 func (tSqlBuilder *TSqlBuilder) WithNolock() *TSqlBuilder {
 	statement := "WITH (NOLOCK)"
-	tSqlBuilder.addStatament(statement)
+	tSqlBuilder.addStatement(statement)
 	return tSqlBuilder
 }
 
@@ -122,72 +122,72 @@ func (tSqlBuilder *TSqlBuilder) WithNolock() *TSqlBuilder {
 // See: https://docs.microsoft.com/en-us/sql/t-sql/queries/where-transact-sql?view=sql-server-ver16
 
 func (tSqlBuilder *TSqlBuilder) Where() *TSqlBuilder {
-	tSqlBuilder.addStatament("WHERE")
+	tSqlBuilder.addStatement("WHERE")
 	return tSqlBuilder
 }
 
 func (tSqlBuilder *TSqlBuilder) And() *TSqlBuilder {
-	tSqlBuilder.addStatament("AND")
+	tSqlBuilder.addStatement("AND")
 	return tSqlBuilder
 }
 
 func (tSqlBuilder *TSqlBuilder) Equal(column string, value interface{}) *TSqlBuilder {
 	statement := fmt.Sprintf("[%s] = '%v'", column, value)
-	tSqlBuilder.addStatament(statement)
+	tSqlBuilder.addStatement(statement)
 	return tSqlBuilder
 }
 
 func (tSqlBuilder *TSqlBuilder) IsNotEqual(column string, value interface{}) *TSqlBuilder {
 	statement := fmt.Sprintf("[%s] <> '%v'", column, value)
-	tSqlBuilder.addStatament(statement)
+	tSqlBuilder.addStatement(statement)
 	return tSqlBuilder
 }
 
 func (tSqlBuilder *TSqlBuilder) GreaterThan(column string, value interface{}) *TSqlBuilder {
 	statement := fmt.Sprintf("[%s] > '%v'", column, value)
-	tSqlBuilder.addStatament(statement)
+	tSqlBuilder.addStatement(statement)
 	return tSqlBuilder
 }
 
 func (tSqlBuilder *TSqlBuilder) GreaterThanOrEqualTo(column string, value interface{}) *TSqlBuilder {
 	statement := fmt.Sprintf("[%s] >= '%v'", column, value)
-	tSqlBuilder.addStatament(statement)
+	tSqlBuilder.addStatement(statement)
 	return tSqlBuilder
 }
 
 func (tSqlBuilder *TSqlBuilder) LessThan(column string, value interface{}) *TSqlBuilder {
 	statement := fmt.Sprintf("[%s] < '%v'", column, value)
-	tSqlBuilder.addStatament(statement)
+	tSqlBuilder.addStatement(statement)
 	return tSqlBuilder
 }
 
 func (tSqlBuilder *TSqlBuilder) LessThanOrEqualTo(column string, value interface{}) *TSqlBuilder {
 	statement := fmt.Sprintf("[%s] <= '%v'", column, value)
-	tSqlBuilder.addStatament(statement)
+	tSqlBuilder.addStatement(statement)
 	return tSqlBuilder
 }
 
 func (tSqlBuilder *TSqlBuilder) Between(column string, startValue interface{}, endValue interface{}) *TSqlBuilder {
 	statement := fmt.Sprintf("[%s] BETWEEN '%v' AND '%v'", column, startValue, endValue)
-	tSqlBuilder.addStatament(statement)
+	tSqlBuilder.addStatement(statement)
 	return tSqlBuilder
 }
 
 func (tSqlBuilder *TSqlBuilder) Like(column string, value interface{}) *TSqlBuilder {
 	statement := fmt.Sprintf("[%s] LIKE '%%%v%%'", column, value)
-	tSqlBuilder.addStatament(statement)
+	tSqlBuilder.addStatement(statement)
 	return tSqlBuilder
 }
 
 func (tSqlBuilder *TSqlBuilder) IsNull(column string) *TSqlBuilder {
 	statement := fmt.Sprintf("[%s] IS NULL", column)
-	tSqlBuilder.addStatament(statement)
+	tSqlBuilder.addStatement(statement)
 	return tSqlBuilder
 }
 
 func (tSqlBuilder *TSqlBuilder) IsNotNull(column string) *TSqlBuilder {
 	statement := fmt.Sprintf("[%s] IS NOT NULL", column)
-	tSqlBuilder.addStatament(statement)
+	tSqlBuilder.addStatement(statement)
 	return tSqlBuilder
 }
 
@@ -197,13 +197,13 @@ func (tSqlBuilder *TSqlBuilder) IsNotNull(column string) *TSqlBuilder {
 
 func (tSqlBuidler *TSqlBuilder) OrderBy(order string) *TSqlBuilder {
 	statement := "ORDER BY " + order
-	tSqlBuidler.addStatament(statement)
+	tSqlBuidler.addStatement(statement)
 	return tSqlBuidler
 }
 
 func (tSqlBuidler *TSqlBuilder) OrderByColumn(column string) *TSqlBuilder {
 	statement := "ORDER BY [" + column + "]"
-	tSqlBuidler.addStatament(statement)
+	tSqlBuidler.addStatement(statement)
 	return tSqlBuidler
 }
 
@@ -212,19 +212,19 @@ func (tSqlbuilder *TSqlBuilder) OrderByColumns(columns []string) *TSqlBuilder {
 		columns[i] = "[" + columns[i] + "]"
 	}
 	statement := "ORDER BY " + strings.Join(columns, ", ")
-	tSqlbuilder.addStatament(statement)
+	tSqlbuilder.addStatement(statement)
 	return tSqlbuilder
 }
 
 func (tSqlBuilder *TSqlBuilder) OffSet(rows uint) *TSqlBuilder {
 	statement := fmt.Sprintf("OFFSET %d ROWS", rows)
-	tSqlBuilder.addStatament(statement)
+	tSqlBuilder.addStatement(statement)
 	return tSqlBuilder
 }
 
 func (tSqlBuidler *TSqlBuilder) FetchNext(rows uint) *TSqlBuilder {
 	statement := fmt.Sprintf("FETCH NEXT %d ROWS ONLY", rows)
-	tSqlBuidler.addStatament(statement)
+	tSqlBuidler.addStatement(statement)
 	return tSqlBuidler
 }
 
@@ -246,7 +246,7 @@ func (sqlBuilder *TSqlBuilder) InsertInto(tableName string, data map[string]inte
 
 	statement = fmt.Sprintf("%s (%s) VALUES (%s)", statement, strings.Join(columns, ","), strings.Join(values, ","))
 
-	sqlBuilder.addStatament(statement)
+	sqlBuilder.addStatement(statement)
 
 	return sqlBuilder
 }
@@ -278,7 +278,7 @@ func (tSqlBuilder *TSqlBuilder) Update(tableName string, data map[string]interfa
 
 func (tSqlBuidler *TSqlBuilder) Delete(tableName string) *TSqlBuilder {
 	statement := "DELETE [" + tableName + "]"
-	tSqlBuidler.addStatament(statement)
+	tSqlBuidler.addStatement(statement)
 	return tSqlBuidler
 }
 
